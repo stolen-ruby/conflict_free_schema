@@ -33,7 +33,6 @@ jobs:
         - { ruby: 3.0, postgres: 13, gemfile: rails_6.1 }
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.cfg.gemfile }}.gemfile
-      POSTGRES_HOST: localhost
     services:
       postgres:
         image: postgres:${{ matrix.cfg.postgres }}
@@ -58,3 +57,5 @@ jobs:
       run: bundle install
     - name: Run tests
       run: bundle exec rspec
+      env:
+        POSTGRES_HOST: localhost
