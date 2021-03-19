@@ -33,7 +33,7 @@ RSpec.describe "Rails 6 integration spec" do
       expect(thread.value).to be_success
 
       migrations = Dir.glob('*', base: schema_migrations_dir)
-      expect(migrations).to eq(["2021010100000", "2021020100000"])
+      expect(migrations).to match_array(["2021010100000", "2021020100000"])
 
       structure = File.read("#{directory}/db/structure.sql")
       expect(structure).to include("CREATE TABLE public.schema_migrations")
