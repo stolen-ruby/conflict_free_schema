@@ -19,8 +19,7 @@ RSpec.describe "Rails 6 integration spec" do
   end
 
   it "executes migration successfully" do
-    Open3.popen3("rake db:migrate", chdir: directory) do |_stdin, _stdout, stderr, thread|
-      expect(stderr.read.chomp).to be_blank
+    Open3.popen3("rake db:migrate", chdir: directory) do |_stdin, _stdout, _stderr, thread|
       expect(thread.value).to be_success
 
       Open3.popen3("rake db:version", chdir: directory) do |_stdin, stdout, _stderr, _thread|
