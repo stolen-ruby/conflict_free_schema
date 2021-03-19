@@ -1,0 +1,10 @@
+development: &development
+  adapter: postgresql
+  host: postgres
+  port: 5432
+  username: postgres
+  password: postgres
+  database: conflict_free_schema
+
+test:
+  <<: *development

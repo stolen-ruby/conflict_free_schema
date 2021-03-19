@@ -1,0 +1,4 @@
+require_relative 'conflict_free_schema/database/postgresql_adapter/dump_schema_version_mixin'
+require_relative 'conflict_free_schema/database/postgresql_database_tasks/load_schema_version_mixin'
+require_relative 'conflict_free_schema/database/schema_version_files'
+require_relative 'conflict_free_schema/railtie'

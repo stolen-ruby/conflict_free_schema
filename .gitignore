@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+.rspec_status
+/Gemfile.lock
+log/
+structure.sql

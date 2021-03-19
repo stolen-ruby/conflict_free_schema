@@ -1,0 +1,37 @@
+version: "3"
+services:
+  ruby:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: conflict_free_schema
+    environment:
+      BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+      HISTFILE: /app/log/.bash_history
+      PSQL_HISTFILE: /app/log/.psql_history
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app:cached
+    tmpfs:
+      - /tmp
+    stdin_open: true
+    tty: true
+  postgres:
+    image: postgres:12.5-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./log:/root/log:cached
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: conflict_free_schema
+      PSQL_HISTFILE: /root/log/.psql_history
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 10s
+      timeout: 3s
+
+volumes:
+  postgres:
