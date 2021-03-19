@@ -8,3 +8,4 @@ development: &development
 
 test:
   <<: *development
+  host: <%= ENV.fetch('POSTGRES_HOST', 'postgres') %>
