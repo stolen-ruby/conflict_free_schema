@@ -39,3 +39,7 @@ Gem will auto-hook into your rails app via `Rails::Railtie`
 > Remove conflicts from structure.sql that are caused by tracking the schema_migrations.versions information. To do this, store an empty file named after each version under the db/schema_migrations directory. That way when we versions are added or removed, we add or delete files from the directory, which should not conflict with other changes.
 
 If you're using `structure.sql` in your Rails project with postgresql - instead of putting schema version in the sql file upon dump, each migration will be stored as a separate file in `db/schema_migrations` (with a SHA hash as content so it's a unique file from git's perspective). If you're doing a lot of structure changes across your organization it should make the life of your developers much easier - resolving conflicts in structure is pain already - even without the need to resolve schema migrations version numbers.
+
+## Development
+
+You can spin up docker-based development environment with provided `docker-compose` file (useful for Apple M1 users) or simply install dependencies locally.
