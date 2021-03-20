@@ -1,6 +1,8 @@
 .DS_Store
 .idea/
 .rspec_status
-/Gemfile.lock
+Gemfile.lock
+gemfiles/*.lock
 log/
 structure.sql
+.bundle/
