@@ -3,8 +3,8 @@
 require 'spec_helper'
 require 'open3'
 
-RSpec.describe "Rails 6 integration spec" do
-  let(:directory) { File.join(File.dirname(__FILE__), '..', 'apps', 'rails6').to_s }
+RSpec.describe "Rails integration spec" do
+  let(:directory) { File.join(File.dirname(__FILE__), '..', 'apps', 'rails').to_s }
   let(:schema_migrations_dir){ "#{directory}/db/schema_migrations" }
 
   after do
