@@ -6,3 +6,5 @@ gemfiles/*.lock
 log/
 structure.sql
 .bundle/
+pkg/
+spec/apps/rails/db/schema_migrations/
