@@ -44,7 +44,7 @@ module ConflictFreeSchema
       end
 
       def self.migration_directories
-        @migration_directories ||= MIGRATION_DIRECTORIES.map { |dir| Rails.root.join(dir) }
+        @migration_directories ||= MIGRATION_DIRECTORIES.map { |dir| Rails.root.join(dir, '**', '*') }
       end
 
       def self.find_version_filenames
@@ -57,10 +57,15 @@ module ConflictFreeSchema
 
       def self.find_versions_from_migration_files
         migration_directories.each_with_object([]) do |directory, migration_versions|
-          directory_migrations = Dir.glob(MIGRATION_VERSION_GLOB, base: directory)
-          directory_versions = directory_migrations.map! { |m| m.split('_').first }
+          directory_migrations = Dir.glob(directory)
+          directory_versions = directory_migrations.map do |migration|
+            item = Pathname.new(migration)
+            next if item.directory?
 
-          migration_versions.concat(directory_versions)
+            item.basename.to_s.match(/20[0-9][0-9]*/).to_s
+          end
+
+          migration_versions.concat(directory_versions.delete_if(&:blank?))
         end
       end
 

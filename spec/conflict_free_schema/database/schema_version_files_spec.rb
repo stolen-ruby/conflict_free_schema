@@ -35,7 +35,9 @@ RSpec.describe ConflictFreeSchema::Database::SchemaVersionFiles do
         expect(File.exist?(old_version_filepath)).to be(true)
 
         allow(described_class).to receive(:schema_directory).and_return(schema_directory)
-        allow(described_class).to receive(:migration_directories).and_return([migrate_directory, post_migrate_directory])
+        allow(described_class).to receive(:migration_directories).and_return(
+          [migrate_directory.join('**/*'), post_migrate_directory.join('**/*')]
+        )
 
         described_class.touch_all([version1, version2, version3, version4])
 
@@ -51,6 +53,61 @@ RSpec.describe ConflictFreeSchema::Database::SchemaVersionFiles do
         [version3, version4].each do |version|
           version_filepath = schema_directory.join(version)
           expect(File.exist?(version_filepath)).to be(false)
+        end
+      end
+    end
+
+    context 'when "db/migrate" folder contains other subfolders' do
+      subject { described_class.touch_all(args) }
+
+      let(:version5) { '20200777' }
+      let(:tmpdir) { Dir.mktmpdir }
+      let(:schema_directory) { Pathname.new(tmpdir).join(relative_schema_directory) }
+      let(:migrate_directory) { Pathname.new(tmpdir).join(relative_migrate_directory) }
+      let(:post_migrate_directory) { Pathname.new(tmpdir).join(relative_post_migrate_directory) }
+      let!(:create_tmp_directories!) do
+        FileUtils.mkdir_p(schema_directory)
+        FileUtils.mkdir_p(migrate_directory.join('1.0'))
+        FileUtils.mkdir_p(post_migrate_directory.join('1.0'))
+      end
+      let!(:migration1) { FileUtils.touch migrate_directory.join("#{version1}_migration.rb") }
+      let!(:migration2) { FileUtils.touch post_migrate_directory.join("#{version2}_post_migration.rb") }
+      let!(:migration3) { FileUtils.touch migrate_directory.join("1.0/#{version3}_migration.rb") }
+      let!(:migration4) { FileUtils.touch post_migrate_directory.join("1.0/#{version4}_post_migration.rb") }
+      let!(:old_version_filepath) do
+        filepath = schema_directory.join('20200101')
+        FileUtils.touch(filepath)
+        filepath
+      end
+      let(:args) { [version1, version2, version3, version4, version5] }
+
+      before do
+        allow(described_class).to receive(:schema_directory).and_return(schema_directory)
+        allow(described_class).to receive(:migration_directories).and_return(
+          [migrate_directory.join('**/*'), post_migrate_directory.join('**/*')]
+        )
+      end
+
+      it 'should remove old timestamp file from schema_migrations folder' do
+        expect(File.exist?(old_version_filepath)).to be(true)
+        subject
+        expect(File.exist?(old_version_filepath)).to be(false)
+      end
+
+      it 'should NOT create timestamp file for version5 migration' do
+        subject
+        expect(File.exist?(schema_directory.join(version5))).to be(false)
+      end
+
+      it 'timestamp should be created for each migration file' do
+        subject
+
+        [version1, version2, version3, version4].each do |version|
+          version_filepath = schema_directory.join(version)
+          expect(File.exist?(version_filepath)).to be(true)
+
+          hashed_value = Digest::SHA256.hexdigest(version)
+          expect(File.read(version_filepath)).to eq(hashed_value)
         end
       end
     end
