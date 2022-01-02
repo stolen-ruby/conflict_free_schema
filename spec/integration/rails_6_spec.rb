@@ -23,7 +23,7 @@ RSpec.describe "Rails 6 integration spec" do
       expect(thread.value).to be_success
 
       Open3.popen3("rake db:version", chdir: directory) do |_stdin, stdout, _stderr, _thread|
-        expect(stdout.read.chomp).to eq("Current version: 2021020100000")
+        expect(stdout.read.chomp).to eq("Current version: 20210201000000")
       end
     end
   end
@@ -33,12 +33,12 @@ RSpec.describe "Rails 6 integration spec" do
       expect(thread.value).to be_success
 
       migrations = Dir.glob('*', base: schema_migrations_dir)
-      expect(migrations).to match_array(["2021010100000", "2021020100000"])
+      expect(migrations).to match_array(["20210101000000", "20210201000000"])
 
       structure = File.read("#{directory}/db/structure.sql")
       expect(structure).to include("CREATE TABLE public.schema_migrations")
-      expect(structure).not_to include("2021010100000")
-      expect(structure).not_to include("2021020100000")
+      expect(structure).not_to include("20210101000000")
+      expect(structure).not_to include("20210201000000")
     end
   end
 
@@ -52,6 +52,6 @@ RSpec.describe "Rails 6 integration spec" do
     end
 
     migrations = Dir.glob('*', base: schema_migrations_dir)
-    expect(migrations).to eq(["2021010100000"])
+    expect(migrations).to eq(["20210101000000"])
   end
 end
