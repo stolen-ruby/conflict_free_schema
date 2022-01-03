@@ -14,16 +14,16 @@ jobs:
         cfg:
         - { ruby: 2.6, postgres: 12, gemfile: rails_6.0 }
         - { ruby: 2.7, postgres: 12, gemfile: rails_6.0 }
-        - { ruby: 3.0, postgres: 12, gemfile: rails_6.0 }
+        - { ruby: 3.0.3, postgres: 12, gemfile: rails_6.0 }
         - { ruby: 2.6, postgres: 13, gemfile: rails_6.0 }
         - { ruby: 2.7, postgres: 13, gemfile: rails_6.0 }
-        - { ruby: 3.0, postgres: 13, gemfile: rails_6.0 }
+        - { ruby: 3.0.3, postgres: 13, gemfile: rails_6.0 }
         - { ruby: 2.6, postgres: 12, gemfile: rails_6.1 }
         - { ruby: 2.7, postgres: 12, gemfile: rails_6.1 }
-        - { ruby: 3.0, postgres: 12, gemfile: rails_6.1 }
+        - { ruby: 3.0.3, postgres: 12, gemfile: rails_6.1 }
         - { ruby: 2.6, postgres: 13, gemfile: rails_6.1 }
         - { ruby: 2.7, postgres: 13, gemfile: rails_6.1 }
-        - { ruby: 3.0, postgres: 13, gemfile: rails_6.1 }
+        - { ruby: 3.0.3, postgres: 13, gemfile: rails_6.1 }
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.cfg.gemfile }}.gemfile
     services:
