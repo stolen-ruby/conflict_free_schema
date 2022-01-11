@@ -18,5 +18,5 @@ ENV BUNDLE_VERSION=2.0.2
 RUN gem update --system && gem install bundler:$BUNDLE_VERSION
 RUN bundle install
 
-COPY Appraisals ./
+COPY Appraisals gemfiles/ ./
 RUN bundle exec appraisal install

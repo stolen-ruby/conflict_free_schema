@@ -3,15 +3,14 @@ services:
   ruby:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-2.6.6
     image: conflict_free_schema
     environment:
       BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
       HISTFILE: /app/log/.bash_history
       PSQL_HISTFILE: /app/log/.psql_history
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     volumes:
       - .:/app:cached
     tmpfs:

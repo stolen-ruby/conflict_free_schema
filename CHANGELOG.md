@@ -1,6 +1,8 @@
 ### Unreleased
 
 - do a recursive search for migrations - use `db/migrate/**/*` pattern ([@Ivanov-Anton](https://github.com/Ivanov-Anton))
+- test on latest Rails 6.0 / 6.1
+- exclude Ruby 3.1 in CI matrix for now ([6.x required workarounds](https://github.com/rails/rails/issues/43998))
 
 ### 0.1.1
 
