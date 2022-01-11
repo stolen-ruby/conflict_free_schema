@@ -1,3 +1,7 @@
+### Unreleased
+
+- do a recursive search for migrations - use `db/migrate/**/*` pattern ([@Ivanov-Anton](https://github.com/Ivanov-Anton))
+
 ### 0.1.1
 
 - explicitly declares files for gem package
