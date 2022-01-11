@@ -11,7 +11,7 @@ RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" >
     postgresql-client-12 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY Gemfile Gemfile.lock conflict_free_schema.gemspec ./
+COPY Gemfile conflict_free_schema.gemspec ./
 
 ENV BUNDLE_VERSION=2.0.2
 
