@@ -61,11 +61,12 @@ module ConflictFreeSchema
           directory_versions = directory_migrations.map do |migration|
             item = Pathname.new(migration)
             next if item.directory?
+            next unless item.basename.fnmatch?(MIGRATION_VERSION_GLOB)
 
-            item.basename.to_s.match(/20[0-9][0-9]*/).to_s
-          end
+            item.basename.to_s.split('_').first
+          end.compact
 
-          migration_versions.concat(directory_versions.delete_if(&:blank?))
+          migration_versions.concat(directory_versions)
         end
       end
 
