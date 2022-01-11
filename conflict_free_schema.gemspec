@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "conflict_free_schema"
-  spec.version       = "0.1.1"
+  spec.version       = "0.1.2"
   spec.authors       = ["Rafal Wojsznis"]
   spec.email         = ["wojsznis@pm.me"]
 

@@ -1,4 +1,4 @@
-### Unreleased
+### 0.1.2
 
 - do a recursive search for migrations - use `db/migrate/**/*` pattern ([@Ivanov-Anton](https://github.com/Ivanov-Anton))
 - test on latest Rails 6.0 / 6.1
