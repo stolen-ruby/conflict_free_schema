@@ -3,14 +3,19 @@
 require 'spec_helper'
 
 RSpec.describe ConflictFreeSchema::Database::PostgresqlAdapter::DumpSchemaVersionsMixin do
-  let(:schema_migration) { double('schema_migration', all_versions: versions) }
+  let(:pool) { double('pool', schema_migration: schema_migration) }
+  let(:schema_migration) { double('schema_migration', all_versions: versions, versions: versions) }
 
   let(:instance) do
     Object.new.extend(described_class)
   end
 
   before do
-    allow(instance).to receive(:schema_migration).and_return(schema_migration)
+    if Rails.version >= "7.2.0"
+      allow(instance).to receive(:pool).and_return(pool)
+    else
+      allow(instance).to receive(:schema_migration).and_return(schema_migration)
+    end
   end
 
   context 'when version files exist' do
