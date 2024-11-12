@@ -12,34 +12,33 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-        - { ruby: 2.6, postgres: 12, gemfile: rails_6.0 }
-        - { ruby: 2.7, postgres: 12, gemfile: rails_6.0 }
-        - { ruby: 3.0.3, postgres: 12, gemfile: rails_6.0 }
-        - { ruby: 2.6, postgres: 13, gemfile: rails_6.0 }
-        - { ruby: 2.7, postgres: 13, gemfile: rails_6.0 }
-        - { ruby: 3.0.3, postgres: 13, gemfile: rails_6.0 }
-        - { ruby: 2.6, postgres: 12, gemfile: rails_6.1 }
-        - { ruby: 2.7, postgres: 12, gemfile: rails_6.1 }
-        - { ruby: 3.0.3, postgres: 12, gemfile: rails_6.1 }
-        - { ruby: 2.6, postgres: 13, gemfile: rails_6.1 }
-        - { ruby: 2.7, postgres: 13, gemfile: rails_6.1 }
-        - { ruby: 3.0.3, postgres: 13, gemfile: rails_6.1 }
-        - { ruby: 2.7, postgres: 12, gemfile: rails_7.0 }
-        - { ruby: 3.0.3, postgres: 12, gemfile: rails_7.0 }
-        - { ruby: 3.1, postgres: 12, gemfile: rails_7.0 }
-        - { ruby: 2.7, postgres: 13, gemfile: rails_7.0 }
-        - { ruby: 3.0.3, postgres: 13, gemfile: rails_7.0 }
-        - { ruby: 3.1, postgres: 13, gemfile: rails_7.0 }
-        - { ruby: 2.7, postgres: 12, gemfile: rails_7.1 }
-        - { ruby: 3.0.3, postgres: 12, gemfile: rails_7.1 }
-        - { ruby: 3.1, postgres: 12, gemfile: rails_7.1 }
-        - { ruby: 2.7, postgres: 13, gemfile: rails_7.1 }
-        - { ruby: 3.0.3, postgres: 13, gemfile: rails_7.1 }
-        - { ruby: 3.1, postgres: 13, gemfile: rails_7.1 }
-        - { ruby: 3.1, postgres: 12, gemfile: rails_7.2 }
-        - { ruby: 3.2, postgres: 12, gemfile: rails_7.2 }
-        - { ruby: 3.1, postgres: 13, gemfile: rails_7.2 }
-        - { ruby: 3.2, postgres: 13, gemfile: rails_7.2 }
+        - { ruby: 3.0.7, postgres: 14, gemfile: rails_6.0 }
+        - { ruby: 3.0.7, postgres: 15, gemfile: rails_6.0 }
+        - { ruby: 3.0.7, postgres: 16, gemfile: rails_6.0 }
+
+        - { ruby: 3.0.7, postgres: 14, gemfile: rails_6.1 }
+        - { ruby: 3.0.7, postgres: 15, gemfile: rails_6.1 }
+        - { ruby: 3.0.7, postgres: 16, gemfile: rails_6.1 }
+
+        - { ruby: 3.0.7, postgres: 14, gemfile: rails_7.0 }
+        - { ruby: 3.0.7, postgres: 15, gemfile: rails_7.0 }
+        - { ruby: 3.0.7, postgres: 16, gemfile: rails_7.0 }
+
+        - { ruby: 3.1.6, postgres: 14, gemfile: rails_7.0 }
+        - { ruby: 3.1.6, postgres: 15, gemfile: rails_7.0 }
+        - { ruby: 3.1.6, postgres: 16, gemfile: rails_7.0 }
+
+        - { ruby: 3.0.7, postgres: 14, gemfile: rails_7.1 }
+        - { ruby: 3.0.7, postgres: 15, gemfile: rails_7.1 }
+        - { ruby: 3.1.6, postgres: 14, gemfile: rails_7.1 }
+        - { ruby: 3.1.6, postgres: 15, gemfile: rails_7.1 }
+        - { ruby: 3.1.6, postgres: 16, gemfile: rails_7.1 }
+
+        - { ruby: 3.1.6, postgres: 14, gemfile: rails_7.2 }
+        - { ruby: 3.1.6, postgres: 15, gemfile: rails_7.2 }
+        - { ruby: 3.2.6, postgres: 14, gemfile: rails_7.2 }
+        - { ruby: 3.2.6, postgres: 15, gemfile: rails_7.2 }
+        - { ruby: 3.2.6, postgres: 16, gemfile: rails_7.2 }
 
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.cfg.gemfile }}.gemfile
@@ -55,7 +54,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
