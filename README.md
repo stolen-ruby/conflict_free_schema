@@ -42,4 +42,4 @@ If you're using `structure.sql` in your Rails project with postgresql - instead 
 
 ## Development
 
-You can spin up docker-based development environment with provided `docker-compose` file (useful for Apple M1 users) or simply install dependencies locally.
+You can spin up postgres test dependency with provided `docker compose`.
