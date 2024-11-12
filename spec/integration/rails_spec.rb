@@ -3,7 +3,7 @@
 require 'spec_helper'
 require 'open3'
 
-RSpec.describe "Rails 6 integration spec" do
+RSpec.describe "Rails 6/7 integration spec" do
   let(:directory) { File.join(File.dirname(__FILE__), '..', 'apps', 'rails6').to_s }
   let(:schema_migrations_dir){ "#{directory}/db/schema_migrations" }
 
@@ -23,7 +23,8 @@ RSpec.describe "Rails 6 integration spec" do
       expect(thread.value).to be_success, stderr.read.chomp
 
       Open3.popen3("rake db:version", chdir: directory) do |_stdin, stdout, _stderr, _thread|
-        expect(stdout.read.chomp).to eq("Current version: 2021030100000")
+        version, _database = stdout.read.strip.lines.reverse
+        expect(version).to eq("Current version: 2021030100000")
       end
     end
   end
